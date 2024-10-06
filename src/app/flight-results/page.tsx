@@ -78,7 +78,7 @@ export default function FlightResults() {
         );
         setFlights(filteredFlights);
         setLoading(false);
-      }, 10000); // Simulate a 2-second API delay
+      }, 8000); // Simulate a 2-second API delay
     }
   }, [searchParams]);
 
