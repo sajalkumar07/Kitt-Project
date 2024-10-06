@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import FlightResults from "./FlightResults";
 
 const CustomMarkerIcon = () => (
   <svg
@@ -115,7 +116,7 @@ export default function SearchFlightForm() {
 
     setTimeout(() => {
       router.push(`/flight-results?${query.toString()}`);
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -123,7 +124,7 @@ export default function SearchFlightForm() {
       <h2 className="text-3xl font-semibold">Good afternoon, KITT</h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 shadow-md rounded-md w-[1057px] flex flex-col mt-20 border-black"
+        className="bg-white p-6 shadow-md rounded-md w-[1057px] flex flex-col mt-20 border-[1px] border-border:#E6E8EB"
       >
         <div className="text-[16px]  rounded-md font-medium mb-4 bg-[#F5F7FA] w-[127px] h-[36px] text-center items-center flex justify-center">
           Flights

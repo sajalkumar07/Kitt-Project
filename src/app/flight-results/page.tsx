@@ -1,68 +1,15 @@
-// src/app/flight-results.tsx
 "use client";
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import FlightResultsLoading from "../components/FlightResultsLoading"; // Import the loading component
-import FlightDetailsModal from "../components/FlightDetailsModal"; // Import the modal component
+import FlightResultsLoading from "../components/FlightResultsLoading";
+import FlightDetailsModal from "../components/FlightDetailsModal";
 import { FaPlane } from "react-icons/fa";
-
-interface Flight {
-  flightNumber: string;
-  airline: string;
-  from: string;
-  to: string;
-  departureTime: string;
-  arrivalTime: string;
-  price: string;
-}
-
-// Simulated flight data (this should come from your API)
-const mockFlights: Flight[] = [
-  {
-    flightNumber: "AI123",
-    airline: "Air India",
-    from: "DEL",
-    to: "BOM",
-    departureTime: "09:00 AM",
-    arrivalTime: "11:00 AM",
-    price: "₹4500",
-  },
-  {
-    flightNumber: "6E456",
-    airline: "IndiGo",
-    from: "DEL",
-    to: "BOM",
-    departureTime: "01:00 PM",
-    arrivalTime: "03:00 PM",
-    price: "₹4000",
-  },
-  {
-    flightNumber: "LH 4324",
-    airline: "Lufthansa",
-    from: "DEL",
-    to: "BOM",
-    departureTime: "11:45 PM",
-    arrivalTime: "6:45 AM",
-    price: "₹4000",
-  },
-  {
-    flightNumber: "EK 1234",
-    airline: "Emirates",
-    from: "DEL",
-    to: "BOM",
-    departureTime: "9:45 AM",
-    arrivalTime: "11:45 AM",
-    price: "2,456.90",
-  },
-];
 
 export default function FlightResults() {
   const searchParams = useSearchParams();
-  const [flights, setFlights] = useState<Flight[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  // Modal state
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
 
@@ -73,16 +20,16 @@ export default function FlightResults() {
     if (from && to) {
       setLoading(true);
       setTimeout(() => {
-        const filteredFlights = mockFlights.filter(
-          (flight) => flight.from === from && flight.to === to
-        );
-        setFlights(filteredFlights);
         setLoading(false);
-      }, 8000); // Simulate a 2-second API delay
+      }, 1000); // Simulate a 2-second API delay
     }
   }, [searchParams]);
 
-  // Display the loading screen while fetching flight results
+  const handleSelectFlight = (flight: Flight) => {
+    setSelectedFlight(flight);
+    setModalOpen(true);
+  };
+
   if (loading) {
     return (
       <FlightResultsLoading
@@ -95,59 +42,46 @@ export default function FlightResults() {
     );
   }
 
-  // Function to handle opening the modal
-  const handleSelectFlight = (flight: Flight) => {
-    setSelectedFlight(flight);
-    setModalOpen(true);
-  };
-
   return (
-    <div className="min-h-screen p-6">
-      <div className="bg-white shadow-md rounded-md flex items-center justify-between p-4 mb-6">
-        <div className="flex gap-4 items-center">
-          <span className="text-lg font-semibold">
-            {searchParams.get("from") || "Unknown Departure"}
-          </span>
-          <FaPlane className="text-xl text-gray-500" />
-          <span className="text-lg font-semibold">
-            {searchParams.get("to") || "Unknown Destination"}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-semibold">{`${
-            searchParams.get("departureDate") || "Unknown Date"
-          } - ${searchParams.get("returnDate") || "Unknown Date"}`}</span>
-        </div>
-      </div>
-
-      {flights.length === 0 ? (
-        <p>No flights found for your search criteria.</p>
-      ) : (
-        <div className="grid gap-4">
-          {flights.map((flight, index) => (
-            <div key={index} className="border p-4 rounded-lg shadow-md">
-              <h2 className="font-semibold">
-                {flight.airline} - {flight.flightNumber}
-              </h2>
-              <p>From: {flight.from}</p>
-              <p>To: {flight.to}</p>
-              <p>Departure: {flight.departureTime}</p>
-              <p>Arrival: {flight.arrivalTime}</p>
-              <p>Price: {flight.price}</p>
-
-              {/* Select Flight Button */}
-              <button
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
-                onClick={() => handleSelectFlight(flight)}
-              >
-                Select Flight
-              </button>
+    <div className="relative h-screen bg-white p-6">
+      {/* Main Content Below Header */}
+      <div className="absolute inset-0 flex items-center justify-center flex-col overflow-auto pt-20">
+        {/* Repeat the flight information sections */}
+        {Array(4)
+          .fill()
+          .map((_, index) => (
+            <div key={index} className="w-[90%] h-[180px] bg-white mb-4">
+              <div className="w-full h-full grid grid-cols-1 gap-2 p-1">
+                <div className="w-full h-full bg-white rounded-lg p-4 border-[1px] border-[#E6E8EB] flex flex-col gap-4">
+                  {/* Row 1 */}
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                      <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                      <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+                    </div>
+                    <div className="">
+                      <button
+                        onClick={handleSelectFlight}
+                        className="bg-green-700 text-white px-6 py-2 rounded-md flex justify-self-end"
+                      >
+                        Select
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
-        </div>
-      )}
+      </div>
 
-      {/* Flight Details Modal */}
       <FlightDetailsModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}

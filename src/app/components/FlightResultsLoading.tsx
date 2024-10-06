@@ -36,39 +36,42 @@ const FlightResultsLoading: React.FC<{
   }, []);
 
   return (
-    <div className="relative h-screen bg-gray-50 p-6">
+    <div className="relative h-screen bg-white p-6">
       {/* Blurred out flight results - Skeleton Loading */}
-      <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-        <div className="blur-md w-[90%] h-[100%] grid grid-cols-1 gap-4 p-1">
-          {/* Big section for Descriptions */}
-
-          {/* Small section for Profile Pictures */}
-          <div className="h-20 bg-gray-300 rounded-md animate-pulse" />
-          <div className="h-20 bg-gray-300 rounded-md animate-pulse" />
-          <div className="h-20 bg-gray-300 rounded-md animate-pulse" />
-          <div className="h-20 bg-gray-300 rounded-md animate-pulse" />
-          <div className="h-20 bg-gray-300 rounded-md animate-pulse" />
-          <div className="h-20 bg-gray-300 rounded-md animate-pulse" />
-        </div>
-      </div>
-
-      {/* Search Bar */}
-      <div className="bg-white shadow-md rounded-lg flex items-center justify-between p-4 mb-6 relative z-10">
-        <div className="flex gap-4 items-center">
-          <span className="text-lg font-semibold">{from}</span>
-          <FaPlane className="text-xl text-gray-500" />
-          <span className="text-lg font-semibold">{to}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-semibold">{travelDates}</span>
-        </div>
+      <div className="absolute inset-0 flex items-center justify-center flex-col overflow-auto pt-20">
+        {/* Repeat the flight information sections */}
+        {Array(4)
+          .fill()
+          .map((_, index) => (
+            <div key={index} className="w-[90%] h-[180px] bg-white mb-4">
+              <div className="w-full h-full grid grid-cols-1 gap-2 p-1">
+                <div className=" w-full h-full bg-white rounded-lg p-4 border-[1px] border-[#E6E8EB] flex flex-col gap-4">
+                  {/* Row 1 */}
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 bg-gray-100 animate-pulse  rounded-md "></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-gray-100 rounded-md animate-pulse  w-3/4 mb-2"></div>
+                      <div className="h-4 bg-gray-100 rounded-md animate-pulse  w-5/6"></div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 bg-gray-100 animate-pulse  rounded-md "></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-gray-100 animate-puls rounded-md w-3/4 mb-2"></div>
+                      <div className="h-4 bg-gray-100 animate-pulse rounded-md w-5/6"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
 
       {/* Loading Section */}
-      <div className="flex flex-col items-center justify-center h-[60vh] relative z-10">
-        <div className="bg-white p-10 shadow-lg rounded-xl flex flex-col items-center w-[332px] h-[300px]">
+      <div className="flex flex-col items-center justify-center h-[100%] relative">
+        <div className="bg-white p-10 shadow-md rounded-xl flex flex-col items-center justify-center w-[323px] h-[300px] border-[1px] border:[#E6E8EB]">
           {/* GIF of Paper Plane */}
-          <div className="paper-plane-container mb-4 animate-waveFloat">
+          <div className="paper-plane-container ">
             <img
               src={GIF.src}
               alt="Paper Plane"

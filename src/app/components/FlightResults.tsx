@@ -1,83 +1,92 @@
-// // src/app/components/FlightResults.tsx
 // "use client";
 
-// import { useState, useEffect } from "react";
-
-// interface Flight {
-//   id: number;
-//   airline: string;
-//   flightNumber: string;
-//   departureTime: string;
-//   arrivalTime: string;
-//   duration: string;
-//   stops: string;
-//   price: string;
-// }
-
-// const flightData: Flight[] = [
-//   {
-//     id: 1,
-//     airline: "Emirates",
-//     flightNumber: "EK 1234",
-//     departureTime: "9:45 AM",
-//     arrivalTime: "11:45 AM",
-//     duration: "2h 10min",
-//     stops: "Non stop",
-//     price: "AED 2,456.90",
-//   },
-//   {
-//     id: 2,
-//     airline: "Lufthansa",
-//     flightNumber: "LH 4324",
-//     departureTime: "11:45 PM",
-//     arrivalTime: "6:45 AM",
-//     duration: "7h 10min",
-//     stops: "1 stop",
-//     price: "AED 1,456.90",
-//   },
-//   // More flight data can be added here
-// ];
+// import { useSearchParams } from "next/navigation";
+// import { useEffect, useState } from "react";
+// import FlightResultsLoading from "../components/FlightResultsLoading";
+// import FlightDetailsModal from "../components/FlightDetailsModal";
+// import { FaPlane } from "react-icons/fa";
 
 // export default function FlightResults() {
-//   const [flights, setFlights] = useState<Flight[]>([]);
+//   const searchParams = useSearchParams();
+
+//   const [loading, setLoading] = useState(true);
+//   const [isModalOpen, setModalOpen] = useState(false);
+//   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
 
 //   useEffect(() => {
-//     // In a real-world app, you would fetch flight results from an API
-//     setFlights(flightData);
-//   }, []);
+//     const from = searchParams.get("from");
+//     const to = searchParams.get("to");
+
+//     if (from && to) {
+//       setLoading(true);
+//       setTimeout(() => {
+//         setLoading(false);
+//       }, 2000); // Simulate a 2-second API delay
+//     }
+//   }, [searchParams]);
+
+//   const handleSelectFlight = (flight: Flight) => {
+//     setSelectedFlight(flight);
+//     setModalOpen(true);
+//   };
+
+//   if (loading) {
+//     return (
+//       <FlightResultsLoading
+//         from={searchParams.get("from") || "Unknown Departure"}
+//         to={searchParams.get("to") || "Unknown Destination"}
+//         travelDates={`${
+//           searchParams.get("departureDate") || "Unknown Date"
+//         } - ${searchParams.get("returnDate") || "Unknown Date"}`}
+//       />
+//     );
+//   }
 
 //   return (
-//     <div className="flex flex-col items-center mt-[50px]">
-//       <h2 className="text-lg font-semibold mb-4">
-//         Showing {flights.length} results
-//       </h2>
-//       <div className="w-full max-w-4xl">
-//         {flights.map((flight) => (
-//           <div
-//             key={flight.id}
-//             className="border p-4 mb-4 rounded-lg flex justify-between items-center"
-//           >
-//             <div className="flex flex-col">
-//               <span className="font-semibold">
-//                 {flight.airline} - {flight.flightNumber}
-//               </span>
-//               <span>
-//                 {flight.departureTime} - {flight.arrivalTime}
-//               </span>
-//               <span>{flight.duration}</span>
-//               <span>{flight.stops}</span>
+//     <div className="relative h-screen bg-white p-6">
+//       {/* Main Content Below Header */}
+//       <div className="absolute inset-0 flex items-center justify-center flex-col overflow-auto pt-20">
+//         {/* Repeat the flight information sections */}
+//         {Array(4)
+//           .fill()
+//           .map((_, index) => (
+//             <div key={index} className="w-[90%] h-[180px] bg-white mb-4">
+//               <div className="w-full h-full grid grid-cols-1 gap-2 p-1">
+//                 <div className="w-full h-full bg-white rounded-lg p-4 border-[1px] border-[#E6E8EB] flex flex-col gap-4">
+//                   {/* Row 1 */}
+//                   <div className="flex items-center gap-4">
+//                     <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+//                     <div className="flex-1">
+//                       <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+//                       <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+//                     </div>
+//                   </div>
+//                   <div className="flex items-center gap-4">
+//                     <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+//                     <div className="flex-1">
+//                       <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+//                       <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+//                     </div>
+//                     <div className="">
+//                       <button
+//                         onClick={handleSelectFlight}
+//                         className="bg-green-700 text-white px-6 py-2 rounded-md flex justify-self-end"
+//                       >
+//                         Select
+//                       </button>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
 //             </div>
-//             <div className="text-right">
-//               <span className="block text-lg font-semibold">
-//                 {flight.price}
-//               </span>
-//               <button className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 mt-2">
-//                 Select
-//               </button>
-//             </div>
-//           </div>
-//         ))}
+//           ))}
 //       </div>
+
+//       <FlightDetailsModal
+//         isOpen={isModalOpen}
+//         onClose={() => setModalOpen(false)}
+//         flightDetails={selectedFlight}
+//       />
 //     </div>
 //   );
 // }
