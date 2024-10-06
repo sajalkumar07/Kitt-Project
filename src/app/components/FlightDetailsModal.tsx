@@ -1,7 +1,31 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import FlightTimeline from "./FlightTimeline";
 
-const FlightDetailsModal = ({ isOpen, onClose }) => {
+// Define a type for each flight segment
+interface FlightSegmentProps {
+  date: string;
+  time: string;
+  from: string;
+  to: string;
+  duration: string;
+  airline: string;
+  flightNumber: string;
+  aircraftType: string;
+  isLastSegment: boolean;
+}
+
+interface FlightDetailsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+// FlightDetailsModal component
+const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
@@ -15,7 +39,7 @@ const FlightDetailsModal = ({ isOpen, onClose }) => {
 
   if (!isOpen && !isAnimating) return null;
 
-  const flightSegments = [
+  const flightSegments: FlightSegmentProps[] = [
     {
       date: "Sat 28 Sept",
       time: "2:15",
@@ -25,6 +49,7 @@ const FlightDetailsModal = ({ isOpen, onClose }) => {
       airline: "Saudi Arabian Airlines",
       flightNumber: "SV553",
       aircraftType: "A330",
+      isLastSegment: false,
     },
     {
       date: "Sat 28 Sept",
@@ -35,6 +60,7 @@ const FlightDetailsModal = ({ isOpen, onClose }) => {
       airline: "Saudi Arabian Airlines",
       flightNumber: "SV553",
       aircraftType: "A330",
+      isLastSegment: true,
     },
   ];
 
@@ -63,11 +89,7 @@ const FlightDetailsModal = ({ isOpen, onClose }) => {
           <div className="space-y-5 relative">
             <FlightTimeline segments={flightSegments} />
             {flightSegments.map((segment, index) => (
-              <FlightSegment
-                key={index}
-                {...segment}
-                isLastSegment={index === flightSegments.length - 1}
-              />
+              <FlightSegment key={index} {...segment} />
             ))}
           </div>
         </div>
@@ -99,7 +121,9 @@ const FlightDetailsModal = ({ isOpen, onClose }) => {
     </div>
   );
 };
-const FlightSegment = ({
+
+// FlightSegment component
+const FlightSegment: React.FC<FlightSegmentProps> = ({
   date,
   time,
   from,

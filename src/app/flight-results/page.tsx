@@ -37,6 +37,24 @@ const mockFlights: Flight[] = [
     arrivalTime: "03:00 PM",
     price: "₹4000",
   },
+  {
+    flightNumber: "LH 4324",
+    airline: "Lufthansa",
+    from: "DEL",
+    to: "BOM",
+    departureTime: "11:45 PM",
+    arrivalTime: "6:45 AM",
+    price: "₹4000",
+  },
+  {
+    flightNumber: "EK 1234",
+    airline: "Emirates",
+    from: "DEL",
+    to: "BOM",
+    departureTime: "9:45 AM",
+    arrivalTime: "11:45 AM",
+    price: "2,456.90",
+  },
 ];
 
 export default function FlightResults() {
@@ -60,7 +78,7 @@ export default function FlightResults() {
         );
         setFlights(filteredFlights);
         setLoading(false);
-      }, 2000); // Simulate a 2-second API delay
+      }, 10000); // Simulate a 2-second API delay
     }
   }, [searchParams]);
 
