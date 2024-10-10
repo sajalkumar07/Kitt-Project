@@ -1,10 +1,12 @@
-import FlightsResults from "@/app/components/FlightResults"; // Make sure this path is correct
+import FlightsResults from "@/app/components/FlightResults";
+import SuspenseBoundary from "@/app/components/SuspenseBoundary";
 
 export default function FlightSearchPage() {
   return (
     <div>
-      <FlightsResults />{" "}
-      {/* Make sure this component is correctly implemented */}
+      <SuspenseBoundary>
+        <FlightsResults />
+      </SuspenseBoundary>
     </div>
   );
 }
