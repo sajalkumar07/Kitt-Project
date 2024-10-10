@@ -32,7 +32,7 @@ const FlightInfoNav: React.FC<FlightInfoNavProps> = ({
   returnDate,
   onModify,
 }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [ismodalOpen, setModalOpen] = useState(false);
 
   const formatDate = (date: string | Date): string => {
     const dateObj = new Date(date);
@@ -110,26 +110,27 @@ const FlightInfoNav: React.FC<FlightInfoNavProps> = ({
               />
             </div>
             <button
-              onClick={onModify}
-              className="bg-[#E5EBEB] text-black p-2 rounded-full"
+              onClick={openModal}
+              className="bg-[#E5EBEB] text-black p-2 rounded-full w-[34px] h-[35px] flex justify-center items-center"
             >
-              <Search size={15} />
+              <Search size={16} />
             </button>
           </div>
-          <div className="close">
-            <X size={24} color="#787B80" />
+          <div className="close rounded-full bg-white h-[40px] w-[40px] flex justify-center items-center border-[1px] border-[#E6E8EB] cursor-pointer">
+            <a href="/flight-search">
+              <X size={20} color="#787B80" />
+            </a>
           </div>
         </div>
       </div>
-      {modalOpen && (
-        <FlightSearchFormModel
-          isOpen={modalOpen}
-          onClose={closeModal}
-          title="Select Details"
-        >
-          <p>Select your flight details here...</p>
-        </FlightSearchFormModel>
-      )}
+
+      <FlightSearchFormModel
+        isOpen={ismodalOpen}
+        onClose={closeModal}
+        title="Select Details"
+      >
+        <p>Select your flight details here...</p>
+      </FlightSearchFormModel>
     </div>
   );
 };

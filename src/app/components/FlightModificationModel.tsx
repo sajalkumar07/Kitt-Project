@@ -140,7 +140,7 @@ const FlightSearchFormModel: React.FC<FlightDetailsModalProps> = ({
                         value={from}
                         onChange={(e) => setFrom(e.target.value)}
                       >
-                        <option value="" disabled>
+                        <option value="" disabled className="hidden">
                           Where from?
                         </option>
                         {airportsData.airports.map((airport) => (
