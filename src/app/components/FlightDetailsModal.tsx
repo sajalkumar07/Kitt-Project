@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import FlightTimeline from "./FlightTimeline";
 import Image from "next/image";
-import LogoOne from "../../../public/Logo 1.png";
 import LogoTwo from "../../../public/Logo 2.png";
+import { useSearchParams } from "next/navigation";
+import airportData from "@/app/airport.json";
 
 // Define a type for each flight segment
 interface FlightSegmentProps {
@@ -24,12 +24,43 @@ interface FlightDetailsModalProps {
   onClose: () => void;
 }
 
+interface AirportInfo {
+  code: string;
+  name: string;
+}
+
+const airports: {
+  name: string;
+  code: string;
+  city: string;
+  country: string;
+}[] = airportData.airports;
+
+const getAirportInfo = (code: string): AirportInfo => {
+  const airport = airports.find((a) => a.code === code); // Use the 'airports' array from JSON
+  return airport
+    ? { code: airport.code, name: airport.name }
+    : { code, name: "" };
+};
+
+const renderAirportInfo = (airportCode: string) => {
+  const { code, name } = getAirportInfo(airportCode);
+  return (
+    <div className="whitespace-warp w-[300px] overflow-hidden text-ellipsis">
+      <span className="font-bold">{code} • </span> {name}
+    </div>
+  );
+};
+
 // FlightDetailsModal component
 const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
+  const searchParams = useSearchParams();
+  const from = searchParams.get("from");
+  const to = searchParams.get("to");
 
   useEffect(() => {
     if (isOpen) {
@@ -41,6 +72,31 @@ const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
   }, [isOpen]);
 
   if (!isOpen && !isAnimating) return null;
+
+  const flightSegments = [
+    {
+      date: "",
+      time: "",
+      from: "",
+      to: "",
+      duration: "",
+      airline: "",
+      flightNumber: "",
+      aircraftType: "",
+      isLastSegment: false,
+    },
+    {
+      date: "",
+      time: "",
+      from: "",
+      to: "",
+      duration: "",
+      airline: "",
+      flightNumber: "",
+      aircraftType: "",
+      isLastSegment: true,
+    },
+  ];
 
   return (
     <div
@@ -186,56 +242,100 @@ const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
               />
             </svg>
           </div>
-          <div className=" w-screen  mb-[300px] ">
-            <div className="mb-[20px]">
+          <div className=" w-screen  mb-[190px] ">
+            <div className="mb-[20px] ">
               <p className="text-xs">Sat 28 Sept • 2:15</p>
-              <p className="font-semibold">DXB • Dubai International Airport</p>
+              <p className="font-semibold">{renderAirportInfo(from || "")}</p>
             </div>
+
             <div className="">
               <p className="text-xs"> Sat 28 Sept • 2:15</p>
-              <p className="font-semibold">
-                RUH • King Khalid International Airport
+              <p className="font-semibold">{renderAirportInfo(to || "")}</p>
+            </div>
+            <div className="flex items-center mt-10 ml-20 gap-3">
+              <p>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_2003_832)">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.00395 1.74998C4.10445 1.74998 1.75395 4.10048 1.75395 6.99998C1.75395 9.89948 4.10445 12.25 7.00395 12.25C9.90344 12.25 12.2539 9.89948 12.2539 6.99998C12.2539 4.10048 9.90344 1.74998 7.00395 1.74998ZM0.58728 6.99998C0.58728 3.45615 3.46012 0.583313 7.00395 0.583313C10.5478 0.583313 13.4206 3.45615 13.4206 6.99998C13.4206 10.5438 10.5478 13.4166 7.00395 13.4166C3.46012 13.4166 0.58728 10.5438 0.58728 6.99998ZM7.00395 2.91665C7.32611 2.91665 7.58728 3.17781 7.58728 3.49998V6.63946L9.59816 7.6449C9.88631 7.78897 10.0031 8.13937 9.85903 8.42752C9.71495 8.71568 9.36456 8.83247 9.07641 8.6884L6.74307 7.52173C6.54545 7.42292 6.42061 7.22093 6.42061 6.99998V3.49998C6.42061 3.17781 6.68178 2.91665 7.00395 2.91665Z"
+                      fill="#787B80"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2003_832">
+                      <rect
+                        width="14"
+                        height="14"
+                        fill="white"
+                        transform="translate(0.00390625)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
               </p>
+              <p className="text-[#787B80] ">Layover 2h 10min</p>
             </div>
           </div>
+
           <div className="w-screen  mb-[300px]">
-            <div className="flex justify-between items-center w-[300px] ">
+            <div className="flex justify-between items-center w-[200px] ml-20 ">
               <Image src={LogoTwo} alt="" />
-              <div className="flex flex-col">
-                <p>Saudi Arabian Airlines • SV553</p>
-                <p>Economy • A330</p>
+              <div className="flex flex-col ">
+                <p>Lufthansa • SV555</p>
+                <p>Economy • A331</p>
                 <p>Flight time 3h 45m</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-between items-center -mt-[110px]">
+        <div className="flex justify-between items-center -mt-[120px]">
           <div className="flex flex-col items-center w-[150px] "></div>
           <div className=" w-screen  ">
             <div className=" mb-[20px]">
               <p className="text-xs"> Sat 28 Sept • 2:15</p>
-              <p className="font-semibold ">
-                RUH • King Khalid International Airport
-              </p>
+              <p className="font-semibold ">{renderAirportInfo(to || "")}</p>
             </div>
-            <div>
+            <div className="">
               <p className="text-xs">Sat 28 Sept • 2:15</p>
-              <p className="font-semibold">
-                CDG • Paris - Charles de Gualle Airport
-              </p>
+              <p className="font-semibold">{renderAirportInfo(from || "")}</p>
             </div>
           </div>
           <div className="w-screen  ">
-            <div className="flex justify-between items-center w-[300px] ">
+            <div className="flex justify-between items-center w-[200px] ml-20 ">
               <Image src={LogoTwo} alt="" />
               <div className="flex flex-col">
-                <p>Saudi Arabian Airlines • SV553</p>
+                <p>Lufthansa • SV553</p>
                 <p>Economy • A330</p>
                 <p>Flight time 3h 45m</p>
               </div>
             </div>
           </div>
+        </div>
+        {/* Flight Segment Display */}
+        <div className="">
+          {flightSegments.map((segment, index) => (
+            <FlightSegment
+              key={index}
+              date={segment.date}
+              time={segment.time}
+              from={segment.from}
+              to={segment.to} // Added 'to' property
+              duration={segment.duration} // Added 'duration' property
+              airline={segment.airline} // Added 'airline' property
+              flightNumber={segment.flightNumber} // Added 'flightNumber' property
+              aircraftType={segment.aircraftType} // Added 'aircraftType' property
+              isLastSegment={segment.isLastSegment}
+            />
+          ))}
         </div>
       </div>
 
@@ -274,31 +374,12 @@ const FlightSegment: React.FC<FlightSegmentProps> = ({
   from,
   isLastSegment,
 }) => (
-  <div className="relative z-10 h-[250px]">
-    <div className="ml-10">
-      <p className="text-sm text-gray-500">{`${date} • ${time}`}</p>
+  <div className="">
+    {/* <div className="ml-10">
+      <p className="text-sm text-gray-500">{`${date}  ${time}`}</p>
       <p className="font-semibold">{from}</p>
-      {!isLastSegment && (
-        <div className="my-2">
-          <svg
-            className="inline-block mr-2"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              stroke="#9CA3AF"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      )}
-    </div>
+      {!isLastSegment && <div className="my-2"></div>}
+    </div> */}
   </div>
 );
 
