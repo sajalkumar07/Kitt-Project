@@ -25,11 +25,9 @@ const config: Config = {
         slideInTop: {
           "0%": {
             transform: "translateY(-100%)", // Start above the screen
-            opacity: 0, // Hidden initially
           },
           "100%": {
             transform: "translateY(0)", // Slide into place
-            opacity: 1, // Fully visible
           },
         },
       },
