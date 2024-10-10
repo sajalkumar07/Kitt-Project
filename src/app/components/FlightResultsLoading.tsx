@@ -53,31 +53,73 @@ export default function FlightResults() {
       <LoadingBar></LoadingBar>
       {/* Blurred out flight results - Skeleton Loading */}
       <div className="relative flex items-center justify-center flex-col overflow-auto mt-9">
-        {Array(4)
-          .fill()
-          .map((_, index) => (
-            <div key={index} className="w-[1056px] h-[180px] bg-white mb-4">
-              <div className="w-full h-full grid grid-cols-1 gap-2 p-1">
-                <div className="w-full h-full bg-white rounded-lg p-4 border-[1px] border-[#E6E8EB] flex flex-col gap-4">
-                  {/* Row 1 */}
-                  <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
-                    <div className="flex-1">
-                      <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
-                      <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
-                    <div className="flex-1">
-                      <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
-                      <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
-                    </div>
-                  </div>
+        <div className="w-[1056px] h-[180px] bg-white mb-4">
+          <div className="w-full h-full grid grid-cols-1 gap-2 p-1">
+            <div className="w-full h-full bg-white rounded-lg p-4 border-[1px] border-[#E6E8EB] flex flex-col gap-4">
+              {/* Row 1 */}
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+        </div>
+      </div>
+      <div className="relative flex items-center justify-center flex-col overflow-auto mt-9">
+        <div className="w-[1056px] h-[180px] bg-white mb-4">
+          <div className="w-full h-full grid grid-cols-1 gap-2 p-1">
+            <div className="w-full h-full bg-white rounded-lg p-4 border-[1px] border-[#E6E8EB] flex flex-col gap-4">
+              {/* Row 1 */}
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="relative flex items-center justify-center flex-col overflow-auto mt-9">
+        <div className="w-[1056px] h-[180px] bg-white mb-4">
+          <div className="w-full h-full grid grid-cols-1 gap-2 p-1">
+            <div className="w-full h-full bg-white rounded-lg p-4 border-[1px] border-[#E6E8EB] flex flex-col gap-4">
+              {/* Row 1 */}
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 bg-gray-100 rounded-md "></div>
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-100 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-100 rounded-md w-5/6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Loading Section */}

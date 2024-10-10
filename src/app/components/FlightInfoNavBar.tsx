@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-
 import { Search, X } from "lucide-react";
-import { useRouter } from "next/router";
-
 import FlightSearchFormModel from "./FlightModificationModel"; // Ensure this is the correct path
 
 interface FlightInfoNavProps {
@@ -42,9 +39,7 @@ const FlightInfoNav: React.FC<FlightInfoNavProps> = ({
   };
 
   const openModal = () => setModalOpen(true);
-  const closeModal = () => {
-    setModalOpen(false); // Navigate to the SearchFlightForm route
-  };
+  const closeModal = () => setModalOpen(false);
 
   return (
     <div className="w-full h-[106px] flex items-center justify-center shadow-md">
@@ -93,11 +88,10 @@ const FlightInfoNav: React.FC<FlightInfoNavProps> = ({
             </button>
           </div>
           <div className="close">
-            <X size={24} color="#787B80" onClick={closeModal} />
+            <X size={24} color="#787B80" />
           </div>
         </div>
       </div>
-      {/* Modal component */}
       {modalOpen && (
         <FlightSearchFormModel
           isOpen={modalOpen}

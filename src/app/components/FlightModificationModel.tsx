@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import airportsData from "../airport.json";
 
+interface FlightDetailsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode; // This line was added
+}
 // Define a type for each flight segment
 const CustomMarkerIcon = () => (
   <svg
