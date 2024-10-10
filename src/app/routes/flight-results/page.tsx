@@ -1,4 +1,4 @@
-import FlightsResults from "../components/FlightResults";
+import FlightsResults from "../../components/FlightResults";
 
 export default function FlightSearchPage() {
   return (

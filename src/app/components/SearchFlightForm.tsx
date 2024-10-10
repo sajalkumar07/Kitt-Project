@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import airportsData from "../airport.json";
 
 const CustomMarkerIcon = () => (
   <svg
@@ -28,73 +29,6 @@ const CustomMarkerIcon = () => (
     </defs>
   </svg>
 );
-// The airport data
-const airports = [
-  {
-    airports: [
-      {
-        name: "Indira Gandhi International Airport",
-        code: "DEL",
-        city: "New Delhi",
-        country: "India",
-      },
-      {
-        name: "Chhatrapati Shivaji Maharaj International Airport",
-        code: "BOM",
-        city: "Mumbai",
-        country: "India",
-      },
-      {
-        name: "John F. Kennedy International Airport",
-        code: "JFK",
-        city: "New York",
-        country: "United States",
-      },
-      {
-        name: "Dubai International Airport",
-        code: "DXB",
-        city: "Dubai",
-        country: "United Arab Emirates",
-      },
-      {
-        name: "Heathrow Airport",
-        code: "LHR",
-        city: "London",
-        country: "United Kingdom",
-      },
-      {
-        name: "Singapore Changi Airport",
-        code: "SIN",
-        city: "Singapore",
-        country: "Singapore",
-      },
-      {
-        name: "Los Angeles International Airport",
-        code: "LAX",
-        city: "Los Angeles",
-        country: "United States",
-      },
-      {
-        name: "Beijing Capital International Airport",
-        code: "PEK",
-        city: "Beijing",
-        country: "China",
-      },
-      {
-        name: "Sydney Kingsford Smith International Airport",
-        code: "SYD",
-        city: "Sydney",
-        country: "Australia",
-      },
-      {
-        name: "Tokyo Haneda Airport",
-        code: "HND",
-        city: "Tokyo",
-        country: "Japan",
-      },
-    ],
-  },
-];
 
 export default function SearchFlightForm() {
   const router = useRouter();
@@ -114,12 +48,12 @@ export default function SearchFlightForm() {
     });
 
     setTimeout(() => {
-      router.push(`/flight-results?${query.toString()}`);
+      router.push(`../routes/flight-results?${query.toString()}`);
     }, 1000);
   };
 
   return (
-    <div className="flex items-center flex-col mt-[200px] w-full">
+    <div className="flex items-center justify-center -mt-[100px] flex-col">
       <h2 className="text-5xl  pt-[200px]">Good afternoon, Kitt</h2>
       <form
         onSubmit={handleSubmit}
@@ -144,7 +78,7 @@ export default function SearchFlightForm() {
                   <option value="" disabled>
                     Where from ?
                   </option>
-                  {airports[0].airports.map((airport) => (
+                  {airportsData.airports.map((airport) => (
                     <option key={airport.code} value={airport.code}>
                       {airport.name} ({airport.code})
                     </option>
@@ -197,7 +131,7 @@ export default function SearchFlightForm() {
                   <option value="" disabled>
                     Where to ?
                   </option>
-                  {airports[0].airports.map((airport) => (
+                  {airportsData.airports.map((airport) => (
                     <option key={airport.code} value={airport.code}>
                       {airport.name} ({airport.code})
                     </option>

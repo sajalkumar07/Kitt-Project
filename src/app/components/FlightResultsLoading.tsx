@@ -5,6 +5,7 @@ import spinner from "../../../public/spinner.gif";
 import { Check } from "lucide-react";
 import FlightInfoNav from "./FlightInfoNavBar";
 import LoadingBar from "./SmoothFlowLoader";
+import Image from "next/image";
 
 export default function FlightResults() {
   const searchParams = useSearchParams();
@@ -33,16 +34,21 @@ export default function FlightResults() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  });
+
+  const onModify = () => {
+    console.log("modify");
+  };
 
   return (
     <div className="h-screen bg-white relative">
       {/* Flight Info Navigation Bar */}
       <FlightInfoNav
-        from={from}
-        to={to}
-        departureDate={departureDate}
-        returnDate={returnDate}
+        from={from ?? " "}
+        to={to ?? " "}
+        departureDate={departureDate ?? " "}
+        returnDate={returnDate ?? " "}
+        onModify={onModify}
       />
       <LoadingBar></LoadingBar>
       {/* Blurred out flight results - Skeleton Loading */}
@@ -79,8 +85,8 @@ export default function FlightResults() {
         <div className="bg-white p-10 shadow-md rounded-xl flex flex-col items-center justify-center w-[323px] h-[300px] border-[1px] border:[#E6E8EB]">
           {/* GIF of Paper Plane */}
           <div className="paper-plane-container">
-            <img
-              src={GIF.src}
+            <Image
+              src={GIF}
               alt="Paper Plane"
               className="w-[130px] h-[130px]"
             />
@@ -94,8 +100,8 @@ export default function FlightResults() {
                   <Check className="h-5 w-5 text-green-500" />
                 ) : currentStep === index ? (
                   <div className="h-5 w-5 relative">
-                    <img
-                      src={spinner.src}
+                    <Image
+                      src={spinner}
                       alt="Loading..."
                       className="absolute inset-0 w-[18px] h-[18px] animate-spin"
                     />
