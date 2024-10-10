@@ -48,7 +48,7 @@ export default function SearchFlightForm() {
     });
 
     setTimeout(() => {
-      router.push(`../routes/flight-results?${query.toString()}`);
+      router.push(`flight-results?${query.toString()}`);
     }, 1000);
   };
 
