@@ -1,6 +1,6 @@
 import React from "react";
 
-const FlightTimeline = ({ segments }) => {
+const FlightTimeline = () => {
   return (
     <div className="absolute left-0 top-0 h-[400px] flex flex-col items-center">
       <svg
