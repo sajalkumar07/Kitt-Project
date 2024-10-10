@@ -127,7 +127,7 @@ export default function FlightResults() {
       <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-center h-full">
         <div className="bg-white p-10 shadow-md rounded-xl flex flex-col items-center justify-center w-[323px] h-[300px] border-[1px] border:[#E6E8EB]">
           {/* GIF of Paper Plane */}
-          <div className="paper-plane-container">
+          <div className="">
             <Image
               src={GIF}
               alt="Paper Plane"
